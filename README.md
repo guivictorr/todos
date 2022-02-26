@@ -22,7 +22,12 @@ cd node-crud
 ## 3. Install dependencies
 yarn
 
-## 4. Run the app
+## 4. Setup database in .env
+
+## 5. Run prisma generate
+npx prisma generate
+
+## 6. Run the app
 yarn dev
 ```
 
