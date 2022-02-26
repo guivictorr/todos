@@ -1,43 +1,43 @@
 import { Request, Response } from 'express';
-import UpdateTodoService from '../services/UpdateTodoService';
-import TodoRepository from '../repositories/TodoRepository';
-import CreateTodoService from '../services/CreateTodoService';
-import DeleteTodoService from '../services/DeleteTodoService';
-
+import { prisma } from '../database/prismaClient';
 class TodoController {
 	async index(req: Request, res: Response) {
-		const todoRepository = new TodoRepository();
-		const todos = await todoRepository.findAll();
-		
-		res.send({ todos });
+		const todos = await prisma.todo.findMany();
+		res.send(todos);
 	}
 
 	async create(req: Request, res: Response) {
 		const { title, description } = req.body;
-		const todoRepository = new TodoRepository();
-		const createTodoService = new CreateTodoService(todoRepository);
-	
-		const todo = await createTodoService.execute({title, description});
-		res.send({ todo });
+		const todo = await prisma.todo.create({
+			data: {
+				title,
+				description
+			}
+		});
+		res.send(todo);
 	}
 
 	async update(req: Request, res: Response) {
-		const { title, description } = req.body;
-		const { id } = req.query;
-		const todoRepository = new TodoRepository();
-		const createTodoService = new UpdateTodoService(todoRepository);
-	
-		const todo = await createTodoService.execute(`${id}`, { title, description });
-		res.send({ todo });
+		const { title, description, id } = req.body;
+
+		const todo = await prisma.todo.update({
+			where: { id },
+			data: {
+				title,
+				description
+			}
+		});
+
+		res.send(todo);
 	}
 
 	async delete(req: Request, res: Response) {
-		const { id } = req.query;
-		const todoRepository = new TodoRepository();
-		const deleteTodoService = new DeleteTodoService(todoRepository);
-	
-		deleteTodoService.execute(`${id}`);
-		res.status(200).send();
+		const { id } = req.body;
+		const todo = await prisma.todo.delete({
+			where: { id }
+		});
+
+		res.send(todo);
 	}
 }
 
