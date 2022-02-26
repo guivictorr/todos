@@ -23,7 +23,7 @@ cd node-crud
 yarn
 
 ## 4. Run the app
-yarn start
+yarn dev
 ```
 
 ## 🤔 How to contribute
