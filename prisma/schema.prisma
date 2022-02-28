@@ -14,5 +14,5 @@ model Todo {
   id          String   @id @default(uuid())
   title       String   @db.VarChar(45)
   description String   @db.VarChar(150)
-  craetedAt   DateTime @default(now())
+  createdAt   DateTime @default(now())
 }
