@@ -25,7 +25,7 @@ yarn
 ## 4. Setup database in .env
 
 ## 5. Run prisma generate
-npx prisma generate
+npx prisma migrate dev
 
 ## 6. Run the app
 yarn dev
