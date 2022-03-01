@@ -9,6 +9,7 @@ Backend
 - [NodeJS](https://nodejs.org/)
 - [Typescript](https://typescriptlang.org/)
 - [Express](http://expressjs.com/pt-br/)
+- [Prisma](https://www.prisma.io/)
 
 ## 📱💻 Instructions
 
