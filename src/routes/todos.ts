@@ -7,7 +7,7 @@ const todoRoutes = Router();
 
 todoRoutes.get('/', todoController.index);
 todoRoutes.post('/', todoController.create);
-todoRoutes.put('/', todoController.update);
-todoRoutes.delete('/', todoController.delete);
+todoRoutes.put('/:id', todoController.update);
+todoRoutes.delete('/:id', todoController.delete);
 
 export default todoRoutes;

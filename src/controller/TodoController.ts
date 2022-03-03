@@ -20,7 +20,8 @@ class TodoController {
 	}
 
 	async update(req: Request, res: Response) {
-		const { title, description, id } = req.body;
+		const { title, description } = req.body;
+		const { id } = req.params;
 
 		const updateTodoService = new UpdateTodoService();
 		const todo = await updateTodoService.execute(id, { title, description });
@@ -29,12 +30,12 @@ class TodoController {
 	}
 
 	async delete(req: Request, res: Response) {
-		const { id } = req.body;
+		const { id } = req.params;
 
 		const deleteTodoService = new DeleteTodoService();
-		const deletedTodo = await deleteTodoService.execute(id);
+		await deleteTodoService.execute(id);
 	
-		res.send(deletedTodo);
+		res.status(200).send({ message: 'Todo deleted successfully' });
 	}
 }
 
