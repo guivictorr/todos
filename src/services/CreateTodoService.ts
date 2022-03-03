@@ -1,6 +1,6 @@
 import { Todo } from '@prisma/client';
-import { prismaClient } from '../database/prismaClient';
-import AppError from '../error/AppError';
+import { prismaClient } from 'database/prismaClient';
+import AppError from 'error/AppError';
 
 class CreateTodoService {
 	async execute(todo: Pick<Todo, 'title' | 'description'>) {

@@ -1,5 +1,5 @@
-import { prismaClient } from '../database/prismaClient';
-import AppError from '../error/AppError';
+import { prismaClient } from 'database/prismaClient';
+import AppError from 'error/AppError';
 
 class DeleteTodoService {
 	async execute(id: string) {
@@ -10,12 +10,10 @@ class DeleteTodoService {
 		if (!verifyTodo) {
 			throw new AppError('Todo not found', 404);
 		}
-	
-		const deletedTodo = await prismaClient.todo.delete({
+		
+		await prismaClient.todo.delete({
 			where: { id },
 		});
-	
-		return deletedTodo;
 	}
 }
 

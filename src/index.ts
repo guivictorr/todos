@@ -1,8 +1,8 @@
 import 'express-async-errors';
 import express from 'express';
 
-import { catchError } from './middlewares/catchError';
-import routes from './routes';
+import { catchError } from 'middlewares/catchError';
+import routes from 'routes';
 
 const PORT = process.env.PORT || 3000;
 

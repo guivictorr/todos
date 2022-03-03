@@ -1,7 +1,7 @@
 import { Todo } from '@prisma/client';
-import { prismaClient } from '../database/prismaClient';
+import { prismaClient } from 'database/prismaClient';
 
-import AppError from '../error/AppError';
+import AppError from 'error/AppError';
 
 class UpdateTodoService {
 	async execute(id: string, todo: Pick<Todo, 'title' | 'description'>) {

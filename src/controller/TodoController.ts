@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { prismaClient } from '../database/prismaClient';
-import CreateTodoService from '../services/CreateTodoService';
-import DeleteTodoService from '../services/DeleteTodoService';
-import UpdateTodoService from '../services/UpdateTodoService';
+import { prismaClient } from 'database/prismaClient';
+import CreateTodoService from 'services/CreateTodoService';
+import DeleteTodoService from 'services/DeleteTodoService';
+import UpdateTodoService from 'services/UpdateTodoService';
 
 class TodoController {
 	async index(req: Request, res: Response) {

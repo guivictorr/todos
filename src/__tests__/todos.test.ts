@@ -1,7 +1,12 @@
 import request from 'supertest';
 import { app } from '../index';
+import { prismaClient } from 'database/prismaClient';
 
 describe('/todos', () => {
+	beforeEach(async () => {
+		await prismaClient.todo.deleteMany();
+	});
+
 	describe('GET /todos ', () => {
 		it('should return all todos', () => {
 			request(app)
