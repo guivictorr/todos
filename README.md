@@ -1,5 +1,5 @@
-<h1 align='center'>node-crud</h1>
-<p align='center'>Just a crud without database made with nodejs and express to practice backend development</p>
+e<h1 align='center'>node-crud</h1>
+<p align='center'>Just a crud made with nodejs and express to practice backend development</p>
 
 ## 🛠 Technologies
 
