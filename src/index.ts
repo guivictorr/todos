@@ -2,14 +2,14 @@ import 'express-async-errors';
 import express from 'express';
 
 import { catchError } from './middlewares/catchError';
-import { router } from './routes';
+import routes from './routes';
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(express.json());
-app.use(router);
+app.use(routes);
 
 app.use(catchError);
 
