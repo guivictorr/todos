@@ -7,11 +7,14 @@ describe('/todos', () => {
 		await prismaClient.todo.deleteMany();
 	});
 
-	describe('GET /todos ', () => {
-		it('should return all todos', () => {
-			request(app)
-				.get('/api/v1/todos')
-				.expect(200);
+	describe('GET /todos ', () => {	
+		it('should return all todos', async () => {
+			const { body } = await request(app).post('/api/v1/todos').send({ title: 'todo title', description: 'todo description' });
+			
+			const response = await request(app).get('/api/v1/todos');
+
+			expect(response.status).toBe(200);
+			expect(response.body).toStrictEqual([body]);
 		});
 	});
 
