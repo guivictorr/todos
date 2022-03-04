@@ -9,7 +9,7 @@ const todoRoutes = Router();
 todoRoutes.use(authenticate);
 
 todoRoutes.get('/', todoController.index);
-todoRoutes.post('/', todoController.create);
+todoRoutes.post('/:userId', todoController.create);
 todoRoutes.put('/:id', todoController.update);
 todoRoutes.delete('/:id', todoController.delete);
 

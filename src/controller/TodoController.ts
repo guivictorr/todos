@@ -12,9 +12,10 @@ class TodoController {
 
 	async create(req: Request, res: Response) {
 		const { title, description } = req.body;
+		const { userId } = req.params;
 		
 		const createTodoService = new CreateTodoService();
-		const todo = await createTodoService.execute({ title, description });
+		const todo = await createTodoService.execute({ title, description, userId });
 
 		res.send(todo);
 	}

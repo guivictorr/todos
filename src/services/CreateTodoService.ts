@@ -3,7 +3,7 @@ import { prismaClient } from 'database/prismaClient';
 import AppError from 'error/AppError';
 
 class CreateTodoService {
-	async execute(todo: Pick<Todo, 'title' | 'description'>) {
+	async execute(todo: Omit<Todo, 'id' | 'createdAt'>) {
 		if (todo.title.length > 45) {
 			throw new AppError('title should be less than 45 characters', 400);
 		}
