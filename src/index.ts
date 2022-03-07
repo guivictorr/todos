@@ -14,8 +14,7 @@ app.use(routes);
 app.use(catchError);
 
 if (process.env.NODE_ENV !== 'test') {
-	app.listen(PORT, () => {
-		console.log(`Server is running on port ${PORT}`);
-	});
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 }
-

@@ -5,28 +5,28 @@ import AppError from 'error/AppError';
 import { sign } from 'jsonwebtoken';
 
 class SessionService {
-	async execute({ email, password }: Pick<User, 'email' | 'password'>) {
-		const user = await prismaClient.user.findFirst({ where: { email } });
+  async execute({ email, password }: Pick<User, 'email' | 'password'>) {
+    const user = await prismaClient.user.findFirst({ where: { email } });
 
-		if (!user) {
-			throw new AppError('Invalid credentials', 401);
-		}
+    if (!user) {
+      throw new AppError('Invalid credentials', 401);
+    }
 
-		const { password: userPassword, ...restUser } = user;
-    
-		const isPasswordCorrect = await compare(password, userPassword);
+    const { password: userPassword, ...restUser } = user;
 
-		if (!isPasswordCorrect) {
-			throw new AppError('Invalid credentials', 401);
-		}
+    const isPasswordCorrect = await compare(password, userPassword);
 
-		const token = sign({}, String(process.env.APP_SECRET));
+    if (!isPasswordCorrect) {
+      throw new AppError('Invalid credentials', 401);
+    }
 
-		return {
-			token,
-			user: restUser,
-		};
-	}
+    const token = sign({}, String(process.env.APP_SECRET));
+
+    return {
+      token,
+      user: restUser,
+    };
+  }
 }
 
 export default SessionService;

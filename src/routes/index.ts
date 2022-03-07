@@ -1,5 +1,3 @@
-
-  
 import { Router } from 'express';
 import todoRoutes from './todos';
 import userRoutes from './user';
