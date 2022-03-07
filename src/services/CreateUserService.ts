@@ -17,6 +17,13 @@ class CreateUserService {
 			data: {
 				...user,
 				password: encryptedPassword
+			},
+			select: {
+				id: true,
+				createdAt: true,
+				email: true,
+				name: true,
+				password: false
 			}
 		});
 
