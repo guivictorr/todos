@@ -23,16 +23,23 @@ describe('/todos', () => {
 	});
 
 	describe('GET /todos ', () => {	
-		it('should return all todos', async () => {
+		it('should return todo by userId', async () => {
 			const { body } = await req
 				.post(`${endpoint}${session.user.id}`)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'todo title', description: 'todo description' });
 			
-			const response = await req.get(endpoint).set('Authorization', `Bearer ${session.token}`);
+			await req
+				.post(`${endpoint}a54de4b8-63f5-43ac-b867-514e4489cc01`)
+				.set('Authorization', `Bearer ${session.token}`)
+				.send({ title: 'todo title', description: 'todo description' });
+
+			const response = await req.get(`${endpoint}${session.user.id}`).set('Authorization', `Bearer ${session.token}`);
 
 			expect(response.status).toBe(200);
-			expect(response.body).toStrictEqual([body]);
+			expect(response.body).toStrictEqual([{
+				...body,
+			}]);
 		});
 	});
 

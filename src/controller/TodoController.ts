@@ -6,7 +6,13 @@ import UpdateTodoService from 'services/UpdateTodoService';
 
 class TodoController {
 	async index(req: Request, res: Response) {
-		const todos = await prismaClient.todo.findMany();
+		const { userId } = req.params;
+
+		const todos = await prismaClient.todo.findMany({
+			where: {
+				userId,
+			}
+		});
 		res.send(todos);
 	}
 
