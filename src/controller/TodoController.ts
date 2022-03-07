@@ -3,6 +3,7 @@ import { prismaClient } from 'database/prismaClient';
 import CreateTodoService from 'services/CreateTodoService';
 import DeleteTodoService from 'services/DeleteTodoService';
 import UpdateTodoService from 'services/UpdateTodoService';
+import TodoRpository from 'repositories/TodoRepository';
 
 class TodoController {
 	async index(req: Request, res: Response) {
@@ -20,7 +21,9 @@ class TodoController {
 		const { title, description } = req.body;
 		const { userId } = req.params;
 
-		const createTodoService = new CreateTodoService();
+		const todoRepository = new TodoRpository();
+
+		const createTodoService = new CreateTodoService(todoRepository);
 		const todo = await createTodoService.execute({
 			title,
 			description,
@@ -34,7 +37,9 @@ class TodoController {
 		const { title, description } = req.body;
 		const { id } = req.params;
 
-		const updateTodoService = new UpdateTodoService();
+		const todoRepository = new TodoRpository();
+
+		const updateTodoService = new UpdateTodoService(todoRepository);
 		const todo = await updateTodoService.execute(id, { title, description });
 
 		res.send(todo);
@@ -43,7 +48,9 @@ class TodoController {
 	async delete(req: Request, res: Response) {
 		const { id } = req.params;
 
-		const deleteTodoService = new DeleteTodoService();
+		const todoRepository = new TodoRpository();
+
+		const deleteTodoService = new DeleteTodoService(todoRepository);
 		await deleteTodoService.execute(id);
 
 		res.status(200).send({ message: 'Todo deleted successfully' });

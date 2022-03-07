@@ -1,19 +1,17 @@
-import { prismaClient } from 'database/prismaClient';
 import AppError from 'error/AppError';
+import { ITodoRepository } from 'repositories/TodoRepository';
 
 class DeleteTodoService {
+	constructor(private todoRepository: ITodoRepository) {}
+
 	async execute(id: string) {
-		const verifyTodo = await prismaClient.todo.findUnique({
-			where: { id },
-		});
+		const verifyTodo = await this.todoRepository.findById(id);
 
 		if (!verifyTodo) {
 			throw new AppError('Todo not found', 404);
 		}
 
-		await prismaClient.todo.delete({
-			where: { id },
-		});
+		await this.todoRepository.deleteById(id);
 	}
 }
 

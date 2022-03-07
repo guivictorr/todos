@@ -2,8 +2,11 @@ import { Todo } from '@prisma/client';
 import { prismaClient } from 'database/prismaClient';
 
 import AppError from 'error/AppError';
+import { ITodoRepository } from 'repositories/TodoRepository';
 
 class UpdateTodoService {
+	constructor(private todoRepository: ITodoRepository) {}
+
 	async execute(id: string, todo: Pick<Todo, 'title' | 'description'>) {
 		if (todo.title.length > 45) {
 			throw new AppError('title should be less than 45 characters', 400);
@@ -25,10 +28,7 @@ class UpdateTodoService {
 			throw new AppError('Todo not found', 404);
 		}
 
-		const updatedTodo = await prismaClient.todo.update({
-			where: { id },
-			data: todo,
-		});
+		const updatedTodo = await this.todoRepository.updateById(id, todo);
 
 		return updatedTodo;
 	}
