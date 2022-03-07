@@ -1,5 +1,4 @@
 import { Todo } from '@prisma/client';
-import { prismaClient } from 'database/prismaClient';
 
 import AppError from 'error/AppError';
 import { ITodoRepository } from 'repositories/TodoRepository';
@@ -20,9 +19,7 @@ class UpdateTodoService {
 			throw new AppError('Title and description are required', 400);
 		}
 
-		const verifyTodo = await prismaClient.todo.findUnique({
-			where: { id },
-		});
+		const verifyTodo = await this.todoRepository.findById(id);
 
 		if (!verifyTodo) {
 			throw new AppError('Todo not found', 404);

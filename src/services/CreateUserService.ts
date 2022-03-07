@@ -1,13 +1,13 @@
 import { User } from '@prisma/client';
 import { hash } from 'bcrypt';
-import { prismaClient } from 'database/prismaClient';
 import AppError from 'error/AppError';
+import { IUserRepository } from 'repositories/UserRepository';
 
 class CreateUserService {
+	constructor(private userRepository: IUserRepository) {}
+
 	async execute(user: Omit<User, 'createdAt' | 'id'>) {
-		const verifyEmail = await prismaClient.user.findFirst({
-			where: { email: user.email },
-		});
+		const verifyEmail = await this.userRepository.findByEmail(user.email);
 
 		if (verifyEmail) {
 			throw new AppError('Email already in use', 400);
@@ -15,18 +15,9 @@ class CreateUserService {
 
 		const encryptedPassword = await hash(user.password, 8);
 
-		const createdUser = await prismaClient.user.create({
-			data: {
-				...user,
-				password: encryptedPassword,
-			},
-			select: {
-				id: true,
-				createdAt: true,
-				email: true,
-				name: true,
-				password: false,
-			},
+		const createdUser = await this.userRepository.create({
+			...user,
+			password: encryptedPassword,
 		});
 
 		return createdUser;

@@ -1,12 +1,14 @@
 import { User } from '@prisma/client';
 import { compare } from 'bcrypt';
-import { prismaClient } from 'database/prismaClient';
 import AppError from 'error/AppError';
 import { sign } from 'jsonwebtoken';
+import { IUserRepository } from 'repositories/UserRepository';
 
 class SessionService {
+	constructor(private userRepository: IUserRepository) {}
+
 	async execute({ email, password }: Pick<User, 'email' | 'password'>) {
-		const user = await prismaClient.user.findFirst({ where: { email } });
+		const user = await this.userRepository.findByEmail(email);
 
 		if (!user) {
 			throw new AppError('Invalid credentials', 401);
