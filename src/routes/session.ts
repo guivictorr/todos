@@ -3,8 +3,8 @@ import { Router } from 'express';
 import SessionController from 'controller/SessionController';
 
 const sessionController = new SessionController();
-const todoRoutes = Router();
+const sessionRoutes = Router();
 
-todoRoutes.post('/', sessionController.create);
+sessionRoutes.post('/', sessionController.create);
 
-export default todoRoutes;
+export default sessionRoutes;
