@@ -1,7 +1,7 @@
 module.exports = {
-  clearMocks: true,
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-  modulePaths: ['<rootDir>/src'],
+	clearMocks: true,
+	preset: 'ts-jest',
+	testEnvironment: 'node',
+	testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+	modulePaths: ['<rootDir>/src'],
 };
