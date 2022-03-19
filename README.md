@@ -1,5 +1,4 @@
-<h1 align='center'>node-crud</h1>
-<p align='center'>Just a crud made with nodejs and express to practice backend development</p>
+<h1 align='center'>fullstack-crud</h1>
 
 ## 🛠 Technologies
 
@@ -10,6 +9,7 @@ Backend
 - [Typescript](https://typescriptlang.org/)
 - [Express](http://expressjs.com/pt-br/)
 - [Prisma](https://www.prisma.io/)
+- [Postgresql](https://www.postgresql.org/)
 
 ## 📱💻 Instructions
 
@@ -18,7 +18,7 @@ Backend
 git clone https://github.com/guivictorr/node-crud.git
 
 ## 2. Change to project folder
-cd node-crud
+cd backend/node-crud
 
 ## 3. Install dependencies
 yarn
