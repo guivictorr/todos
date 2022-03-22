@@ -20,7 +20,7 @@ Backend
 git clone https://github.com/guivictorr/node-crud.git
 
 ## 2. Change to project folder
-cd backend/node-crud
+cd backend
 
 ## 3. Install dependencies
 yarn
