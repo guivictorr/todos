@@ -17,7 +17,7 @@ Backend
 
 ```
 ## 1. Clone repo
-git clone https://github.com/guivictorr/node-crud.git
+git clone https://github.com/guivictorr/fullstack-crud.git
 
 ## 2. Change to project folder
 cd backend
