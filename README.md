@@ -7,32 +7,12 @@
 This project was developed with the following technologies:
 
 Backend
+
 - [NodeJS](https://nodejs.org/)
 - [Typescript](https://typescriptlang.org/)
 - [Express](http://expressjs.com/pt-br/)
 - [Prisma](https://www.prisma.io/)
 - [Postgresql](https://www.postgresql.org/)
-
-## 📱💻 Instructions
-
-```
-## 1. Clone repo
-git clone https://github.com/guivictorr/fullstack-crud.git
-
-## 2. Change to project folder
-cd backend
-
-## 3. Install dependencies
-yarn
-
-## 4. Setup database in .env
-
-## 5. Run prisma generate
-npx prisma migrate dev
-
-## 6. Run the app
-yarn dev
-```
 
 ## 🤔 How to contribute
 
