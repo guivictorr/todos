@@ -9,7 +9,7 @@ describe('/session', () => {
 		it('should create a session', async () => {
 			const session = await req
 				.post(endpoint)
-				.send({ email: 'test@test.com', password: 'test' });
+				.send({ email: 'test@test.com', password: '123' });
 
 			expect(session.status).toBe(200);
 			expect(session.body).toStrictEqual({

@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { loginUser } from '../../.jest/session.mock';
 import { app } from '../index';
 import { prismaClient } from 'database/prismaClient';
 import { User } from '@prisma/client';
@@ -6,21 +7,17 @@ import { User } from '@prisma/client';
 const req = request(app);
 const endpoint = '/api/v1/todos/';
 
-async function loginUser() {
-	const session = await req
-		.post('/api/v1/session')
-		.send({ email: 'test@test.com', password: 'test' });
-	return session.body;
-}
-
 describe('/todos', () => {
 	let session: {
 		token: string;
 		user: User;
 	};
 
-	beforeEach(async () => {
+	beforeAll(async () => {
 		session = await loginUser();
+	});
+
+	beforeEach(async () => {
 		await prismaClient.todo.deleteMany();
 	});
 
