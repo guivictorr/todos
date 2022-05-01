@@ -1,8 +1,8 @@
 {
-	"name": "@packages/eslint",
+	"name": "@packages/config",
 	"version": "0.0.0",
 	"files": [
-		"api.js"
+		"eslint-api.js"
 	],
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.14.0",

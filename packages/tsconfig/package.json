@@ -1,9 +1,8 @@
 {
-  "name": "@packages/tsconfig",
-  "version": "0.0.0",
-  "private": true,
-  "main": "index.js",
-  "files": [
-    "api.json"
-  ]
+	"name": "@packages/tsconfig",
+	"version": "0.0.0",
+	"private": true,
+	"files": [
+		"api.json"
+	]
 }

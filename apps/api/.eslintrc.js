@@ -1,1 +1,1 @@
-module.exports = require('@packages/eslint/api.js');
+module.exports = require('@packages/config/eslint-api.js');

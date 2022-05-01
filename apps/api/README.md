@@ -1,5 +1,3 @@
-<h1 align='center'>🚧 Under construction 🚧</h1>
-
 <h1 align='center'>tasks-api</h1>
 
 ## 🛠 Technologies
