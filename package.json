@@ -11,9 +11,12 @@
 		"dev": "turbo run dev --parallel",
 		"lint": "turbo run lint",
 		"test": "turbo run test",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"cm": "cz"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^16.2.4",
+		"@commitlint/config-conventional": "^16.2.4",
 		"husky": "^7.0.4",
 		"lint-staged": "^12.4.1",
 		"prettier": "^2.5.1",
