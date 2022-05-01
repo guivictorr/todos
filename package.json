@@ -11,8 +11,7 @@
 		"dev": "turbo run dev --parallel",
 		"lint": "turbo run lint",
 		"test": "turbo run test",
-		"prepare": "husky install",
-		"cm": "cz"
+		"prepare": "husky install"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^16.2.4",
