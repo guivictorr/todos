@@ -1,7 +1,6 @@
 <h1 align='center'>🚧 Under construction 🚧</h1>
 
-<h1 align='center'>tasks</h1>
-<p align='center'>A todo list app that I'm building to practice my skills building an entire app by myself</p>
+<h1 align='center'>tasks-api</h1>
 
 ## 🛠 Technologies
 

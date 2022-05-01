@@ -1,0 +1,6 @@
+{
+	"extends": "@packages/tsconfig/api.json",
+	"compilerOptions": {
+		"outDir": "./dist"
+	}
+}

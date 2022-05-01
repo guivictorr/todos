@@ -1,0 +1,14 @@
+{
+	"name": "@packages/eslint",
+	"version": "0.0.0",
+	"files": [
+		"api.js"
+	],
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.14.0",
+		"eslint": "^8.10.0",
+		"@typescript-eslint/parser": "^5.14.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.0.0"
+	}
+}
