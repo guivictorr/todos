@@ -5,6 +5,7 @@
 	"author": "guivictorr <55333929+guivictorr@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
+		"build": "tsc",
 		"dev": "yarn migrate:dev &&  dotenv -e .env.development ts-node src/index.ts",
 		"lint": "eslint --fix .",
 		"migrate:dev": "dotenv -e .env.development yarn prisma migrate dev",

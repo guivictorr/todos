@@ -9,7 +9,7 @@ node_modules
 coverage
 
 # api
-.dist/
+dist/
 
 # next.js
 .next/
