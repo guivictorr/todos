@@ -6,13 +6,15 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "tsc",
-		"dev": "yarn migrate:dev &&  dotenv -e .env.development ts-node src/index.ts",
 		"lint": "eslint --fix .",
+		"dev": "yarn docker-dev:up && yarn migrate:dev && dotenv -e .env.development ts-node src/index.ts --transpile-only",
 		"migrate:dev": "dotenv -e .env.development yarn prisma migrate dev",
-		"migrate:test": "dotenv -e .env.test yarn prisma migrate deploy",
-		"docker:up": "docker-compose up -d",
-		"docker:down": "docker-compose down",
-		"test": "yarn docker:up && yarn migrate:test && dotenv -e .env.test jest -i && yarn docker:down"
+		"docker-dev:up": "docker-compose up -d db_dev",
+		"migrate:test": "dotenv -e .env.test yarn prisma migrate dev",
+		"docker-test:down": "docker-compose stop db_test && docker-compose rm -f db_test",
+		"docker-test:up": "docker-compose up -d db_test",
+		"test:run": "dotenv -e .env.test jest -i",
+		"test:integration": "yarn docker-test:up && yarn migrate:test && yarn test:run && yarn docker-test:down"
 	},
 	"dependencies": {
 		"@prisma/client": "^3.10.0",

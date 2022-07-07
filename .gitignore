@@ -35,3 +35,6 @@ yarn-error.log*
 # turbo
 .turbos
 .turbo
+
+# docker
+db

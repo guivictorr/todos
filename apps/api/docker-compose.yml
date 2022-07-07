@@ -3,7 +3,7 @@ version: '3.9'
 
 # The containers that compose the project
 services:
-  db:
+  db_test:
     image: postgres:13
     restart: always
     container_name: tasks-api-tests
@@ -13,3 +13,15 @@ services:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
       POSTGRES_DB: tests
+  db_dev:
+    image: postgres:13
+    restart: always
+    container_name: tasks-api-dev
+    ports:
+      - '5434:5432'
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+      POSTGRES_DB: dev
+    volumes:
+      - ./db/dev:/var/lib/postgresql/data
