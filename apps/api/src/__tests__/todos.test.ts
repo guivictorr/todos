@@ -1,20 +1,28 @@
 import { User } from '@prisma/client';
+import { randomUUID } from 'crypto';
 import request from 'supertest';
-import { createUser, loginUser } from '../../.jest/session';
+import { prismaClient } from '../database/prismaClient';
 import { app } from '../index';
 
 const req = request(app);
 const endpoint = `${process.env.API_PREFIX}/todos`;
 
 describe('/todos', () => {
-	let session: {
+	const session: Partial<{
 		token: string;
 		user: User;
-	};
+	}> = {};
 
-	beforeAll(async () => {
-		await createUser();
-		session = await loginUser();
+	beforeEach(async () => {
+		session.token = process.env.JWT_TOKEN;
+		session.user = await prismaClient.user.create({
+			data: {
+				email: 'test@test.com',
+				password: 'test',
+				name: 'Test',
+				id: randomUUID(),
+			},
+		});
 	});
 
 	describe('GET /todos ', () => {
@@ -217,7 +225,6 @@ describe('/todos', () => {
 				.post(`${endpoint}/${session.user.id}`)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'todo title', description: 'todo description' });
-
 			const response = await req
 				.delete(`${endpoint}/${body.id}`)
 				.set('Authorization', `Bearer ${session.token}`);

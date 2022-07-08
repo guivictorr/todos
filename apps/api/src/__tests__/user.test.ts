@@ -26,17 +26,17 @@ describe('/user', () => {
 	describe('PUT /user', () => {
 		it('should update user data', async () => {
 			const createdUser = await req.post(endpoint).send({
-				email: 'user2@gmail.com',
-				password: '123456',
-				name: 'updatetest',
+				email: 'updatetest@test.com',
+				password: 'test',
+				name: 'Test',
 			});
 
 			const updatedUser = await req
 				.put(`${endpoint}/${createdUser.body.id}`)
 				.send({
-					email: 'user@gmail.com',
-					password: 'updatedpassword',
-					name: 'User',
+					email: 'updatetest2@test.com',
+					password: 'test',
+					name: 'Test',
 				});
 
 			expect(updatedUser.status).toBe(200);
@@ -61,26 +61,25 @@ describe('/user', () => {
 		});
 
 		it('should throw error if email is already in use', async () => {
-			const createdUser = await req.post(endpoint).send({
-				email: 'user3@gmail.com',
+			const firstUser = await req.post(endpoint).send({
+				email: 'firstuser@gmail.com',
 				password: '123456',
 				name: 'updatetest',
 			});
 
-			await req.post(endpoint).send({
-				email: 'user4@gmail.com',
+			const secondUser = await req.post(endpoint).send({
+				email: 'seconduser@gmail.com',
 				password: '123456',
 				name: 'updatetest',
 			});
 
 			const updatedUser = await req
-				.put(`${endpoint}/${createdUser.body.id}`)
+				.put(`${endpoint}/${firstUser.body.id}`)
 				.send({
-					email: 'user4@gmail.com',
+					email: secondUser.body.email,
 					password: 'updatedpassword',
 					name: 'User',
 				});
-
 			expect(updatedUser.status).toBe(400);
 			expect(updatedUser.body).toStrictEqual({
 				message: 'Email already in use',

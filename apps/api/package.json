@@ -1,7 +1,7 @@
 {
 	"name": "todos-api",
 	"version": "0.0.0",
-	"main": "src/dist/index.js",
+	"main": "src/index.ts",
 	"author": "guivictorr <55333929+guivictorr@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
@@ -14,7 +14,7 @@
 		"docker-test:down": "docker-compose stop db_test && docker-compose rm -f db_test",
 		"docker-test:up": "docker-compose up -d db_test",
 		"test:run": "dotenv -e .env.test jest -i",
-		"test": "yarn docker-test:up && yarn migrate:test && yarn test:run && yarn docker-test:down"
+		"test": "yarn docker-test:down && yarn docker-test:up && yarn migrate:test && yarn test:run && yarn docker-test:down"
 	},
 	"dependencies": {
 		"@prisma/client": "^3.10.0",
