@@ -1,7 +1,7 @@
 {
-	"name": "tasks-api",
+	"name": "todos-api",
 	"version": "0.0.0",
-	"main": "src/index.js",
+	"main": "src/dist/index.js",
 	"author": "guivictorr <55333929+guivictorr@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
