@@ -15,6 +15,28 @@ Backend
 - [Postgresql](https://www.postgresql.org/)
 - [Docker](https://www.docker.com)
 
+## 📱💻 Instructions
+
+```bash
+## 1. Clone repo
+git clone https://github.com/guivictorr/todos.git
+
+## 2. Change to project folder
+cd todos
+
+## 3. Install dependencies
+yarn
+
+## 4. Configure .env file with your database credentials
+
+## 5. Start the api
+yarn dev # this command will run migrations and start the app
+```
+
+## 🐳 Docker
+
+To run this application with docker, after configure `.env` file and before run `yarn dev` you need to run `docker-dev:up` to create and start a container running a postgres image
+
 ## 🤔 How to contribute
 
 - Fork this repository;

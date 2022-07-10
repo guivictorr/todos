@@ -18,10 +18,10 @@ services:
     restart: always
     container_name: tasks-api-dev
     ports:
-      - '5434:5432'
+      - '${DATABASE_PORT}:5432'
     environment:
-      POSTGRES_USER: prisma
-      POSTGRES_PASSWORD: prisma
-      POSTGRES_DB: dev
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - ./db/dev:/var/lib/postgresql/data
