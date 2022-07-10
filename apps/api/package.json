@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "tsc",
-		"lint": "eslint --fix .",
+		"lint": "eslint . --max-warnings=0 --fix",
 		"dev": "yarn migrate:dev && ts-node src/index.ts --transpile-only",
 		"migrate:dev": " yarn prisma migrate dev",
 		"docker-dev:up": "docker-compose up -d db_dev",
