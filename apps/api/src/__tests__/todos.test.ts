@@ -40,6 +40,7 @@ describe('/todos', () => {
 			expect(response.body).toStrictEqual([
 				{
 					...body,
+					subtodos: [],
 				},
 			]);
 		});
