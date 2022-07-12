@@ -12,9 +12,9 @@ model Todo {
   title       String    @db.VarChar(45)
   description String    @db.VarChar(150)
   createdAt   DateTime  @default(now())
-  userId      String?
-  User        User?     @relation(fields: [userId], references: [id])
-  Subtodos    Subtodo[]
+  userId      String
+  User        User      @relation(fields: [userId], references: [id])
+  subtodos    Subtodo[]
 }
 
 model Subtodo {
@@ -22,8 +22,8 @@ model Subtodo {
   title        String   @db.VarChar(45)
   description  String   @db.VarChar(150)
   createdAt    DateTime @default(now())
-  parentTodoId String?
-  parentTodo   Todo?    @relation(fields: [parentTodoId], references: [id])
+  parentTodoId String
+  parentTodo   Todo     @relation(fields: [parentTodoId], references: [id])
 }
 
 model User {
