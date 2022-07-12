@@ -13,7 +13,11 @@ class TodoController {
 			where: {
 				userId,
 			},
+			include: {
+				subtodos: true,
+			},
 		});
+
 		res.send(todos);
 	}
 
