@@ -69,10 +69,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: '', description: 'todo description' });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'Title and description are required',
-				status: 400,
+				status: 422,
 			});
 		});
 
@@ -82,10 +82,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: '' });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'Title and description are required',
-				status: 400,
+				status: 422,
 			});
 		});
 
@@ -95,10 +95,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 't'.repeat(46), description: 'description' });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'title should be less than 45 characters',
-				status: 400,
+				status: 422,
 			});
 		});
 
@@ -108,10 +108,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: 'd'.repeat(151) });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'description should be less than 150 characters',
-				status: 400,
+				status: 422,
 			});
 		});
 	});
@@ -161,10 +161,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: '', description: 'updated description' });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'Title and description are required',
-				status: 400,
+				status: 422,
 			});
 		});
 
@@ -178,10 +178,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: '' });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'Title and description are required',
-				status: 400,
+				status: 422,
 			});
 		});
 
@@ -195,10 +195,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 't'.repeat(46), description: 'description' });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'title should be less than 45 characters',
-				status: 400,
+				status: 422,
 			});
 		});
 
@@ -212,10 +212,10 @@ describe('/todos', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: 'd'.repeat(151) });
 
-			expect(response.status).toEqual(400);
+			expect(response.status).toEqual(422);
 			expect(response.body).toEqual({
 				message: 'description should be less than 150 characters',
-				status: 400,
+				status: 422,
 			});
 		});
 	});
