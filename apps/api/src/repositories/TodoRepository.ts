@@ -5,13 +5,21 @@ export interface ITodoRepository {
 	create(todo: Omit<Todo, 'createdAt' | 'id'>): Promise<Todo>;
 	deleteById(id: string): Promise<void>;
 	findById(id: string): Promise<Todo | null>;
+	findByUserId(userId: string): Promise<Todo[]>;
 	updateById(
 		id: string,
 		todo: Pick<Todo, 'title' | 'description'>,
 	): Promise<Todo>;
 }
 
-class TodoRpository implements ITodoRepository {
+class TodoRepository implements ITodoRepository {
+	findByUserId(userId: string): Promise<Todo[]> {
+		return prismaClient.todo.findMany({
+			where: { userId },
+			include: { subtodos: true },
+		});
+	}
+
 	async create(todo: Omit<Todo, 'createdAt' | 'id'>): Promise<Todo> {
 		return await prismaClient.todo.create({
 			data: todo,
@@ -38,4 +46,4 @@ class TodoRpository implements ITodoRepository {
 	}
 }
 
-export default TodoRpository;
+export default TodoRepository;

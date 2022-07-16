@@ -1,22 +1,24 @@
 import { Request, Response } from 'express';
-import { prismaClient } from '../database/prismaClient';
 import CreateTodoService from '../services/CreateTodoService';
 import DeleteTodoService from '../services/DeleteTodoService';
 import UpdateTodoService from '../services/UpdateTodoService';
 import TodoRepository from '../repositories/TodoRepository';
+import UserRepository from '../repositories/UserRepository';
+import ListUserTodosService from '../services/ListUserTodosService';
 
 class TodoController {
 	async index(req: Request, res: Response) {
 		const { userId } = req.params;
 
-		const todos = await prismaClient.todo.findMany({
-			where: {
-				userId,
-			},
-			include: {
-				subtodos: true,
-			},
-		});
+		const userRepository = new UserRepository();
+		const todoRepository = new TodoRepository();
+
+		const listTodosService = new ListUserTodosService(
+			todoRepository,
+			userRepository,
+		);
+
+		const todos = await listTodosService.execute(userId);
 
 		res.send(todos);
 	}

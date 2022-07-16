@@ -45,6 +45,18 @@ describe('/todos', () => {
 				},
 			]);
 		});
+
+		it('should return 404 if userId does not exist', async () => {
+			const response = await req
+				.get(`${endpoint}/invalid-id`)
+				.set('Authorization', `Bearer ${session.token}`);
+
+			expect(response.status).toBe(404);
+			expect(response.body).toStrictEqual({
+				message: 'User not found',
+				status: 404,
+			});
+		});
 	});
 
 	describe('POST /todos', () => {
