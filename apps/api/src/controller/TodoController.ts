@@ -28,8 +28,12 @@ class TodoController {
 		const { userId } = req.params;
 
 		const todoRepository = new TodoRepository();
+		const userRepository = new UserRepository();
 
-		const createTodoService = new CreateTodoService(todoRepository);
+		const createTodoService = new CreateTodoService(
+			todoRepository,
+			userRepository,
+		);
 		const todo = await createTodoService.execute({
 			title,
 			description,

@@ -76,6 +76,19 @@ describe('/todos', () => {
 			});
 		});
 
+		it('should throw 404 if userId does not exist', async () => {
+			const response = await req
+				.post(`${endpoint}/invalid-id`)
+				.set('Authorization', `Bearer ${session.token}`)
+				.send({ title: 'todo title', description: 'todo description' });
+
+			expect(response.status).toEqual(404);
+			expect(response.body).toEqual({
+				message: 'User not found',
+				status: 404,
+			});
+		});
+
 		it('should not create todo with invalid title', async () => {
 			const response = await req
 				.post(`${endpoint}/${session.user.id}`)
