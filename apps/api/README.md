@@ -29,13 +29,16 @@ yarn
 
 ## 4. Configure .env file with your database credentials
 
-## 5. Start the api
+## 5. Run migrations
+npx prisma migrate dev
+
+## 6. Start the api
 yarn dev # this command will run migrations and start the app
 ```
 
 ## 🐳 Docker
 
-To run this application with docker, after configure `.env` file and before run `yarn dev` you need to run `docker-dev:up` to create and start a container running a postgres image
+To run this application with docker, after configure `.env` file and before run `yarn dev` you need to run `docker-compose up -d` to create and start a container running a postgres image
 
 ## 🤔 How to contribute
 

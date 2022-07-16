@@ -1,3 +1,4 @@
+import { sign } from 'jsonwebtoken';
 import request from 'supertest';
 import { prismaClient } from '../database/prismaClient';
 import { app } from '../index';
@@ -7,8 +8,10 @@ const endpoint = `${process.env.API_PREFIX}/subtodos`;
 
 describe('/subtodos', () => {
 	let parentTodoId: string;
+	let token: string;
 
 	beforeAll(async () => {
+		token = sign({}, String(process.env.APP_SECRET));
 		const user = await prismaClient.user.create({
 			data: {
 				email: 'test@gmail.com',
@@ -34,7 +37,7 @@ describe('/subtodos', () => {
 		it('should create a subtodo correctly', async () => {
 			const subtodo = await req
 				.post(`${endpoint}/${parentTodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({
 					title: 'subtodo title',
 					description: 'subtodo description',
@@ -53,7 +56,7 @@ describe('/subtodos', () => {
 		it('should not create if parent does not exist', async () => {
 			const subtodo = await req
 				.post(`${endpoint}/invalid-parent-id`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({
 					title: 'subtodo title',
 					description: 'subtodo description',
@@ -69,7 +72,7 @@ describe('/subtodos', () => {
 		it('should not create subtodo with invalid title', async () => {
 			const response = await req
 				.post(`${endpoint}/${parentTodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: '', description: 'todo description' });
 
 			expect(response.status).toEqual(422);
@@ -82,7 +85,7 @@ describe('/subtodos', () => {
 		it('should not create subtodo with invalid description', async () => {
 			const response = await req
 				.post(`${endpoint}/${parentTodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: 'title', description: '' });
 
 			expect(response.status).toEqual(422);
@@ -95,7 +98,7 @@ describe('/subtodos', () => {
 		it('should not create subtodo with title length greater than 45 characters', async () => {
 			const response = await req
 				.post(`${endpoint}/${parentTodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: 't'.repeat(46), description: 'description' });
 
 			expect(response.status).toEqual(422);
@@ -108,7 +111,7 @@ describe('/subtodos', () => {
 		it('should not create subtodo with description length greater than 150 characters', async () => {
 			const response = await req
 				.post(`${endpoint}/${parentTodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: 'title', description: 'd'.repeat(151) });
 
 			expect(response.status).toEqual(422);
@@ -123,7 +126,7 @@ describe('/subtodos', () => {
 		it('should delete subtodo correctly', async () => {
 			const subtodo = await req
 				.post(`${endpoint}/${parentTodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({
 					title: 'subtodo title',
 					description: 'subtodo description',
@@ -131,7 +134,7 @@ describe('/subtodos', () => {
 
 			const deletedTodo = await req
 				.delete(`${endpoint}/${subtodo.body.id}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`);
+				.set('Authorization', `Bearer ${token}`);
 
 			expect(deletedTodo.status).toBe(200);
 
@@ -144,7 +147,7 @@ describe('/subtodos', () => {
 		it('should throw error if subtodo does not exist', async () => {
 			const deletedTodo = await req
 				.delete(`${endpoint}/invalid-id`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`);
+				.set('Authorization', `Bearer ${token}`);
 
 			expect(deletedTodo.status).toBe(404);
 
@@ -174,7 +177,7 @@ describe('/subtodos', () => {
 		it('should update a subtodo correctly', async () => {
 			const editedSubtodo = await req
 				.put(`${endpoint}/${subtodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({
 					title: 'edited subtodo title',
 					description: 'edited subtodo description',
@@ -193,7 +196,7 @@ describe('/subtodos', () => {
 		it('should not update subtodo if does not exist', async () => {
 			const subtodo = await req
 				.put(`${endpoint}/invalid-parent-id`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({
 					title: 'subtodo title',
 					description: 'subtodo description',
@@ -209,7 +212,7 @@ describe('/subtodos', () => {
 		it('should not update subtodo with invalid title', async () => {
 			const response = await req
 				.put(`${endpoint}/${subtodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: '', description: 'todo description' });
 
 			expect(response.status).toEqual(422);
@@ -222,7 +225,7 @@ describe('/subtodos', () => {
 		it('should not update subtodo with invalid description', async () => {
 			const response = await req
 				.put(`${endpoint}/${subtodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: 'title', description: '' });
 
 			expect(response.status).toEqual(422);
@@ -235,7 +238,7 @@ describe('/subtodos', () => {
 		it('should not update todo with title length greater than 45 characters', async () => {
 			const response = await req
 				.put(`${endpoint}/${subtodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: 't'.repeat(46), description: 'description' });
 
 			expect(response.status).toEqual(422);
@@ -248,7 +251,7 @@ describe('/subtodos', () => {
 		it('should not update todo with description length greater than 150 characters', async () => {
 			const response = await req
 				.put(`${endpoint}/${subtodoId}`)
-				.set('Authorization', `Bearer ${process.env.JWT_TOKEN}`)
+				.set('Authorization', `Bearer ${token}`)
 				.send({ title: 'title', description: 'd'.repeat(151) });
 
 			expect(response.status).toEqual(422);
