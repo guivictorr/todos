@@ -1,11 +1,11 @@
 import AppError from '../error/AppError';
-import TodoRepository from '../repositories/TodoRepository';
-import UserRepository from '../repositories/UserRepository';
+import { ITodoRepository } from '../repositories/TodoRepository';
+import { IUserRepository } from '../repositories/UserRepository';
 
 class ListUserTodos {
 	constructor(
-		private todoRepository: TodoRepository,
-		private userRepository: UserRepository,
+		private todoRepository: ITodoRepository,
+		private userRepository: IUserRepository,
 	) {}
 
 	async execute(userId: string) {
