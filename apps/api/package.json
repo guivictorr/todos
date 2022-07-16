@@ -5,25 +5,19 @@
 	"author": "guivictorr <55333929+guivictorr@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
-		"build": "tsc",
 		"lint": "eslint . --max-warnings=0 --fix",
-		"dev": "yarn migrate:dev && ts-node src/index.ts --transpile-only",
-		"migrate:dev": " yarn prisma migrate dev",
-		"docker-dev:up": "docker-compose up -d db_dev",
-		"docker-dev:down": "docker-compose stop db_test && docker-compose rm -f db_dev",
-		"migrate:test": "dotenv -e .env.test yarn prisma migrate deploy",
-		"docker-test:down": "docker-compose stop db_test && docker-compose rm -f db_test",
-		"docker-test:up": "docker-compose up -d db_test",
-		"test:run": "dotenv -e .env.test jest -i",
-		"test": "yarn docker-test:down && yarn docker-test:up && yarn migrate:test && yarn test:run && yarn docker-test:down"
+		"dev": "nodemon --watch 'src/' --exec ts-node src/index.ts --transpile-only -e ts",
+		"test": "jest -i"
 	},
 	"dependencies": {
 		"@prisma/client": "^4.0.0",
 		"bcrypt": "^5.0.1",
+		"dotenv": "^16.0.1",
 		"express": "^4.17.3",
 		"express-async-errors": "^3.1.1",
 		"joi": "^17.6.0",
-		"jsonwebtoken": "^8.5.1"
+		"jsonwebtoken": "^8.5.1",
+		"pg": "^8.7.3"
 	},
 	"devDependencies": {
 		"@packages/config": "*",
@@ -33,10 +27,11 @@
 		"@types/jest": "^27.4.1",
 		"@types/jsonwebtoken": "^8.5.8",
 		"@types/node": "^17.0.21",
+		"@types/pg": "^8.6.5",
 		"@types/supertest": "^2.0.11",
-		"dotenv-cli": "^5.1.0",
 		"eslint": "^8.10.0",
 		"jest": "^27.5.1",
+		"nodemon": "^2.0.19",
 		"prisma": "^4.0.0",
 		"supertest": "^6.2.2",
 		"ts-jest": "^27.1.3",

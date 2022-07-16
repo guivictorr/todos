@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import { randomUUID } from 'crypto';
+import { sign } from 'jsonwebtoken';
 import request from 'supertest';
 import { prismaClient } from '../database/prismaClient';
 import { app } from '../index';
@@ -14,7 +15,7 @@ describe('/todos', () => {
 	}> = {};
 
 	beforeEach(async () => {
-		session.token = process.env.JWT_TOKEN;
+		session.token = sign({}, String(process.env.APP_SECRET));
 		session.user = await prismaClient.user.create({
 			data: {
 				email: 'test@test.com',
