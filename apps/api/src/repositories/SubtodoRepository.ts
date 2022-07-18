@@ -2,10 +2,7 @@ import { Subtodo } from '@prisma/client';
 import { prismaClient } from '../database/prismaClient';
 
 export interface ISubtodoRepository {
-	update(
-		id: string,
-		subtodo: Pick<Subtodo, 'title' | 'description'>,
-	): Promise<Subtodo>;
+	update(id: string, subtodo: Partial<Subtodo>): Promise<Subtodo>;
 	create(todo: Omit<Subtodo, 'id' | 'createdAt'>): Promise<Subtodo>;
 	findById(id: string): Promise<Subtodo | undefined>;
 	delete(id: string): Promise<void>;

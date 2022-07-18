@@ -27,7 +27,7 @@ export class SubtodoController {
 	}
 
 	async update(req: Request, res: Response) {
-		const { title, description } = req.body;
+		const { title, description, completed } = req.body;
 		const { id } = req.params;
 
 		const subtodoRepository = new SubtodoRepository();
@@ -35,6 +35,7 @@ export class SubtodoController {
 		const subtodo = await updateSubtodoService.execute(id, {
 			title,
 			description,
+			completed,
 		});
 
 		res.send(subtodo);

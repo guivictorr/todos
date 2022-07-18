@@ -13,6 +13,7 @@ const todoSchema = Joi.object({
 			'string.max': 'description should be less than 150 characters',
 			'string.empty': 'Title and description are required',
 		}),
+	completed: Joi.boolean().optional(),
 });
 
 export { todoSchema };

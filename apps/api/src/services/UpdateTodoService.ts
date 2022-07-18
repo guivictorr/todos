@@ -6,7 +6,7 @@ import { ITodoRepository } from '../repositories/TodoRepository';
 class UpdateTodoService {
 	constructor(private todoRepository: ITodoRepository) {}
 
-	async execute(id: string, todo: Pick<Todo, 'title' | 'description'>) {
+	async execute(id: string, todo: Partial<Todo>) {
 		const verifyTodo = await this.todoRepository.findById(id);
 
 		if (!verifyTodo) {

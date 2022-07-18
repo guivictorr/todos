@@ -6,10 +6,7 @@ export interface ITodoRepository {
 	deleteById(id: string): Promise<void>;
 	findById(id: string): Promise<Todo | null>;
 	findByUserId(userId: string): Promise<Todo[]>;
-	updateById(
-		id: string,
-		todo: Pick<Todo, 'title' | 'description'>,
-	): Promise<Todo>;
+	updateById(id: string, todo: Partial<Todo>): Promise<Todo>;
 }
 
 class TodoRepository implements ITodoRepository {

@@ -45,13 +45,17 @@ class TodoController {
 	}
 
 	async update(req: Request, res: Response) {
-		const { title, description } = req.body;
+		const { title, description, completed } = req.body;
 		const { id } = req.params;
 
 		const todoRepository = new TodoRepository();
 
 		const updateTodoService = new UpdateTodoService(todoRepository);
-		const todo = await updateTodoService.execute(id, { title, description });
+		const todo = await updateTodoService.execute(id, {
+			title,
+			description,
+			completed,
+		});
 
 		res.send(todo);
 	}

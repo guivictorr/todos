@@ -5,7 +5,7 @@ import { ISubtodoRepository } from '../repositories/SubtodoRepository';
 export class UpdateSubtodoService {
 	constructor(private subtodoRepository: ISubtodoRepository) {}
 
-	async execute(id: string, subtodo: Pick<Subtodo, 'title' | 'description'>) {
+	async execute(id: string, subtodo: Partial<Subtodo>) {
 		const subtodoFound = await this.subtodoRepository.findById(id);
 
 		if (!subtodoFound) {
