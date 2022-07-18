@@ -38,6 +38,7 @@ class TodoController {
 			title,
 			description,
 			userId,
+			completed: false,
 		});
 
 		res.send(todo);

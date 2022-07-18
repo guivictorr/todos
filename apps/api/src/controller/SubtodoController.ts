@@ -20,6 +20,7 @@ export class SubtodoController {
 			description,
 			title,
 			parentTodoId,
+			completed: false,
 		});
 
 		res.send(subtodo);

@@ -5,7 +5,7 @@
 	"author": "guivictorr <55333929+guivictorr@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
-		"lint": "eslint . --max-warnings=0 --fix",
+		"lint": "eslint . --max-warnings=0 --fix && tsc --project tsconfig.json --noEmit",
 		"dev": "nodemon --watch 'src/' --exec ts-node src/index.ts --transpile-only -e ts",
 		"test": "jest -i"
 	},
