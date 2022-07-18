@@ -72,6 +72,7 @@ describe('/todos', () => {
 				title: 'todo title',
 				description: 'todo description',
 				userId: session.user.id,
+				completed: false,
 				createdAt: expect.any(String),
 			});
 		});
@@ -160,6 +161,7 @@ describe('/todos', () => {
 				title: 'updated title',
 				description: 'updated description',
 				createdAt: body.createdAt,
+				completed: false,
 				userId: session.user.id,
 			});
 		});

@@ -50,6 +50,7 @@ describe('/subtodos', () => {
 				description: subtodo.body.description,
 				parentTodoId,
 				createdAt: subtodo.body.createdAt,
+				completed: false,
 			});
 		});
 
@@ -190,6 +191,7 @@ describe('/subtodos', () => {
 				description: editedSubtodo.body.description,
 				parentTodoId,
 				createdAt: editedSubtodo.body.createdAt,
+				completed: false,
 			});
 		});
 

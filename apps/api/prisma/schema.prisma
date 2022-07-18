@@ -11,6 +11,7 @@ model Todo {
   id          String    @id @default(uuid())
   title       String    @db.VarChar(45)
   description String    @db.VarChar(150)
+  completed   Boolean   @default(false) @db.Boolean
   createdAt   DateTime  @default(now())
   userId      String
   User        User      @relation(fields: [userId], references: [id])
@@ -21,6 +22,7 @@ model Subtodo {
   id           String   @id @default(uuid())
   title        String   @db.VarChar(45)
   description  String   @db.VarChar(150)
+  completed    Boolean  @default(false) @db.Boolean
   createdAt    DateTime @default(now())
   parentTodoId String
   parentTodo   Todo     @relation(fields: [parentTodoId], references: [id])
