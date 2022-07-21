@@ -10,12 +10,11 @@ const subtodoRoutes = Router();
 
 subtodoRoutes.use(authenticate);
 
-subtodoRoutes.post(
-	'/:parentTodoId',
-	validate(todoSchema),
-	subtodoController.create,
-);
-subtodoRoutes.put('/:id', validate(todoSchema), subtodoController.update);
 subtodoRoutes.delete('/:id', subtodoController.delete);
+
+subtodoRoutes.use(validate(todoSchema));
+
+subtodoRoutes.post('/:parentTodoId', subtodoController.create);
+subtodoRoutes.put('/:id', subtodoController.update);
 
 export default subtodoRoutes;

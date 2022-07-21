@@ -11,8 +11,11 @@ const todoRoutes = Router();
 todoRoutes.use(authenticate);
 
 todoRoutes.get('/:userId', todoController.index);
-todoRoutes.post('/:userId', validate(todoSchema), todoController.create);
-todoRoutes.put('/:id', validate(todoSchema), todoController.update);
 todoRoutes.delete('/:id', todoController.delete);
+
+todoRoutes.use(validate(todoSchema));
+
+todoRoutes.post('/:userId', todoController.create);
+todoRoutes.put('/:id', todoController.update);
 
 export default todoRoutes;
