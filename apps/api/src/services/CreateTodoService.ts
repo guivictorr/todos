@@ -1,7 +1,9 @@
-import { Todo } from '@prisma/client';
 import AppError from '../error/AppError';
-import { ITodoRepository } from '../repositories/TodoRepository';
-import { IUserRepository } from '../repositories/UserRepository';
+import {
+	ICreateTodoDTO,
+	ITodoRepository,
+} from '../repositories/ITodoRepository';
+import { IUserRepository } from '../repositories/IUserRepository';
 
 class CreateTodoService {
 	constructor(
@@ -9,7 +11,7 @@ class CreateTodoService {
 		private userRepository: IUserRepository,
 	) {}
 
-	async execute(todo: Omit<Todo, 'id' | 'createdAt'>) {
+	async execute(todo: ICreateTodoDTO) {
 		const user = await this.userRepository.findById(todo.userId);
 
 		if (!user) {

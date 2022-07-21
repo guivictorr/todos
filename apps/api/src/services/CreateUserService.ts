@@ -1,12 +1,14 @@
-import { User } from '@prisma/client';
 import { hash } from 'bcrypt';
 import AppError from '../error/AppError';
-import { IUserRepository } from '../repositories/UserRepository';
+import {
+	ICreateUserDTO,
+	IUserRepository,
+} from '../repositories/IUserRepository';
 
 class CreateUserService {
 	constructor(private userRepository: IUserRepository) {}
 
-	async execute(user: Omit<User, 'createdAt' | 'id'>) {
+	async execute(user: ICreateUserDTO) {
 		const verifyEmail = await this.userRepository.findByEmail(user.email);
 
 		if (verifyEmail) {

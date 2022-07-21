@@ -1,5 +1,5 @@
 import AppError from '../error/AppError';
-import { ITodoRepository } from '../repositories/TodoRepository';
+import { ITodoRepository } from '../repositories/ITodoRepository';
 
 class DeleteTodoService {
 	constructor(private todoRepository: ITodoRepository) {}
@@ -11,7 +11,7 @@ class DeleteTodoService {
 			throw new AppError('Todo not found', 404);
 		}
 
-		await this.todoRepository.deleteById(id);
+		this.todoRepository.deleteById(id);
 	}
 }
 

@@ -1,13 +1,6 @@
 import { Todo } from '@prisma/client';
 import { prismaClient } from '../database/prismaClient';
-
-export interface ITodoRepository {
-	create(todo: Omit<Todo, 'createdAt' | 'id'>): Promise<Todo>;
-	deleteById(id: string): Promise<void>;
-	findById(id: string): Promise<Todo | null>;
-	findByUserId(userId: string): Promise<Todo[]>;
-	updateById(id: string, todo: Partial<Todo>): Promise<Todo>;
-}
+import { ICreateTodoDTO, ITodoRepository } from './ITodoRepository';
 
 class TodoRepository implements ITodoRepository {
 	findByUserId(userId: string): Promise<Todo[]> {
@@ -17,26 +10,26 @@ class TodoRepository implements ITodoRepository {
 		});
 	}
 
-	async create(todo: Omit<Todo, 'createdAt' | 'id'>): Promise<Todo> {
-		return await prismaClient.todo.create({
+	create(todo: ICreateTodoDTO): Promise<Todo> {
+		return prismaClient.todo.create({
 			data: todo,
 		});
 	}
-	async deleteById(id: string): Promise<void> {
-		await prismaClient.todo.delete({
+
+	deleteById(id: string): void {
+		prismaClient.todo.delete({
 			where: { id },
 		});
 	}
-	async findById(id: string): Promise<Todo | null> {
-		return await prismaClient.todo.findUnique({
+
+	findById(id: string): Promise<Todo> {
+		return prismaClient.todo.findUnique({
 			where: { id },
 		});
 	}
-	async updateById(
-		id: string,
-		todo: Pick<Todo, 'title' | 'description'>,
-	): Promise<Todo> {
-		return await prismaClient.todo.update({
+
+	updateById(id: string, todo: Partial<Todo>): Promise<Todo> {
+		return prismaClient.todo.update({
 			where: { id },
 			data: todo,
 		});

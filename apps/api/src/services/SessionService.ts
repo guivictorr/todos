@@ -2,7 +2,7 @@ import { User } from '@prisma/client';
 import { compare } from 'bcrypt';
 import AppError from '../error/AppError';
 import { sign } from 'jsonwebtoken';
-import { IUserRepository } from '../repositories/UserRepository';
+import { IUserRepository } from '../repositories/IUserRepository';
 
 class SessionService {
 	constructor(private userRepository: IUserRepository) {}

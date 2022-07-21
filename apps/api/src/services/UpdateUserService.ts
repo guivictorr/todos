@@ -1,12 +1,12 @@
 import { User } from '@prisma/client';
 
 import AppError from '../error/AppError';
-import { IUserRepository } from '../repositories/UserRepository';
+import { IUserRepository } from '../repositories/IUserRepository';
 
 class UpdateUserService {
 	constructor(private userRepository: IUserRepository) {}
 
-	async execute(id: string, user: Omit<User, 'id' | 'createdAt'>) {
+	async execute(id: string, user: Partial<User>) {
 		const emailAlreadyInUse = await this.userRepository.findByEmail(user.email);
 		const userExists = await this.userRepository.findById(id);
 
@@ -18,9 +18,7 @@ class UpdateUserService {
 			throw new AppError('Email already in use', 400);
 		}
 
-		const updatedUser = await this.userRepository.update(id, user);
-
-		return updatedUser;
+		return this.userRepository.update(id, user);
 	}
 }
 

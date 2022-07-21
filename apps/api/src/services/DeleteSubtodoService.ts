@@ -1,5 +1,5 @@
 import AppError from '../error/AppError';
-import { ISubtodoRepository } from '../repositories/SubtodoRepository';
+import { ISubtodoRepository } from '../repositories/ISubtodoRepository';
 
 export class DeleteSubtodoService {
 	constructor(private subtodoRepository: ISubtodoRepository) {}
@@ -11,6 +11,6 @@ export class DeleteSubtodoService {
 			throw new AppError('Subtodo not found', 404);
 		}
 
-		await this.subtodoRepository.delete(id);
+		this.subtodoRepository.delete(id);
 	}
 }

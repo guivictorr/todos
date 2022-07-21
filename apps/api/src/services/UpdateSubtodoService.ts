@@ -1,6 +1,6 @@
 import { Subtodo } from '@prisma/client';
 import AppError from '../error/AppError';
-import { ISubtodoRepository } from '../repositories/SubtodoRepository';
+import { ISubtodoRepository } from '../repositories/ISubtodoRepository';
 
 export class UpdateSubtodoService {
 	constructor(private subtodoRepository: ISubtodoRepository) {}
@@ -12,6 +12,6 @@ export class UpdateSubtodoService {
 			throw new AppError('Subtodo not found', 404);
 		}
 
-		return await this.subtodoRepository.update(id, subtodo);
+		return this.subtodoRepository.update(id, subtodo);
 	}
 }

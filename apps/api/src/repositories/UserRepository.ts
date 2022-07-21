@@ -1,22 +1,13 @@
 import { User } from '@prisma/client';
 import { prismaClient } from '../database/prismaClient';
+import { IUserRepository } from './IUserRepository';
 
-export interface IUserRepository {
-	create(user: Omit<User, 'createdAt' | 'id'>): Promise<Omit<User, 'password'>>;
-	findByEmail(email: string): Promise<User | null>;
-	findById(id: string): Promise<User | null>;
+class UserRepository implements IUserRepository {
 	update(
 		id: string,
 		user: Omit<User, 'id' | 'createdAt'>,
-	): Promise<Omit<User, 'password'>>;
-}
-
-class UserRepository implements IUserRepository {
-	async update(
-		id: string,
-		user: Omit<User, 'id' | 'createdAt'>,
 	): Promise<Omit<User, 'password'>> {
-		return await prismaClient.user.update({
+		return prismaClient.user.update({
 			data: user,
 			where: { id },
 			select: {
@@ -28,22 +19,22 @@ class UserRepository implements IUserRepository {
 			},
 		});
 	}
-	async findById(id: string): Promise<User | null> {
-		return await prismaClient.user.findUnique({
+	findById(id: string): Promise<User> {
+		return prismaClient.user.findUnique({
 			where: { id },
 		});
 	}
 
-	async findByEmail(email: string): Promise<User | null> {
-		return await prismaClient.user.findFirst({
+	findByEmail(email: string): Promise<User | undefined> {
+		return prismaClient.user.findFirst({
 			where: { email },
 		});
 	}
 
-	async create(
+	create(
 		user: Omit<User, 'createdAt' | 'id'>,
 	): Promise<Omit<User, 'password'>> {
-		return await prismaClient.user.create({
+		return prismaClient.user.create({
 			data: user,
 			select: {
 				id: true,

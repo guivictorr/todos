@@ -1,7 +1,9 @@
-import { Subtodo } from '@prisma/client';
 import AppError from '../error/AppError';
-import { ISubtodoRepository } from '../repositories/SubtodoRepository';
-import { ITodoRepository } from '../repositories/TodoRepository';
+import {
+	ICreateSubtodoDTO,
+	ISubtodoRepository,
+} from '../repositories/ISubtodoRepository';
+import { ITodoRepository } from '../repositories/ITodoRepository';
 
 class CreateSubtodoService {
 	constructor(
@@ -9,7 +11,7 @@ class CreateSubtodoService {
 		private todoRepository: ITodoRepository,
 	) {}
 
-	async execute(subtodo: Omit<Subtodo, 'id' | 'createdAt'>) {
+	async execute(subtodo: ICreateSubtodoDTO) {
 		const parentTodo = await this.todoRepository.findById(subtodo.parentTodoId);
 
 		if (!parentTodo) {

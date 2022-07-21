@@ -1,7 +1,7 @@
 import { Todo } from '@prisma/client';
 
 import AppError from '../error/AppError';
-import { ITodoRepository } from '../repositories/TodoRepository';
+import { ITodoRepository } from '../repositories/ITodoRepository';
 
 class UpdateTodoService {
 	constructor(private todoRepository: ITodoRepository) {}
@@ -13,9 +13,7 @@ class UpdateTodoService {
 			throw new AppError('Todo not found', 404);
 		}
 
-		const updatedTodo = await this.todoRepository.updateById(id, todo);
-
-		return updatedTodo;
+		return this.todoRepository.updateById(id, todo);
 	}
 }
 
