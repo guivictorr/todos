@@ -14,7 +14,7 @@ describe('/todos', () => {
 		user: User;
 	}> = {};
 
-	beforeEach(async () => {
+	beforeAll(async () => {
 		session.token = sign({}, String(process.env.APP_SECRET));
 		session.user = await prismaClient.user.create({
 			data: {

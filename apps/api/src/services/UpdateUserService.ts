@@ -14,7 +14,7 @@ class UpdateUserService {
 			throw new AppError('User not found', 404);
 		}
 
-		if (id !== emailAlreadyInUse?.id && emailAlreadyInUse) {
+		if (emailAlreadyInUse) {
 			throw new AppError('Email already in use', 400);
 		}
 
