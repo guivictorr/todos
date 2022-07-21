@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import todoRoutes from './todos';
-import userRoutes from './user';
-import sessionRoutes from './session';
-import subtodoRoutes from './subtodos';
+import todoRoutes from './todos.routes';
+import userRoutes from './user.routes';
+import sessionRoutes from './session.routes';
+import subtodoRoutes from './subtodos.routes';
 
 const routes = Router();
 const prefixRoutes = '/api/v1';
