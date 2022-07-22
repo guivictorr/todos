@@ -22,7 +22,10 @@ class SessionService {
 			throw new AppError('Invalid credentials', 401);
 		}
 
-		const token = sign({}, String(process.env.APP_SECRET));
+		const token = sign({}, String(process.env.APP_SECRET), {
+			subject: user.id,
+			expiresIn: '1d',
+		});
 
 		return {
 			token,
