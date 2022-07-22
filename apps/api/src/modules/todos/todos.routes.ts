@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import TodoController from '../controller/TodoController';
-import { todoSchema } from '../schemas/todo';
-import authenticate from '../middlewares/auth';
-import { validate } from '../middlewares/validate';
+import TodoController from './TodoController';
+import { todoSchema } from './schemas/todo';
+import authenticate from 'middlewares/auth';
+import { validate } from 'middlewares/validate';
 
 const todoController = new TodoController();
 const todoRoutes = Router();

@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 
-import AppError from '../error/AppError';
-import { IUserRepository } from '../repositories/IUserRepository';
+import AppError from 'error/AppError';
+import { IUserRepository } from 'modules/user/repository/IUserRepository';
 
 class UpdateUserService {
 	constructor(private userRepository: IUserRepository) {}

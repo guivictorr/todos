@@ -1,8 +1,8 @@
 import { User } from '@prisma/client';
 import { compare } from 'bcrypt';
-import AppError from '../error/AppError';
+import AppError from 'error/AppError';
 import { sign } from 'jsonwebtoken';
-import { IUserRepository } from '../repositories/IUserRepository';
+import { IUserRepository } from 'modules/user/repository/IUserRepository';
 
 class SessionService {
 	constructor(private userRepository: IUserRepository) {}

@@ -1,5 +1,5 @@
 import { Subtodo } from '@prisma/client';
-import { prismaClient } from '../database/prismaClient';
+import { prismaClient } from 'database/prismaClient';
 import { ICreateSubtodoDTO, ISubtodoRepository } from './ISubtodoRepository';
 
 export class SubtodoRepository implements ISubtodoRepository {

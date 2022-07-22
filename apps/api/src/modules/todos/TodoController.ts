@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import CreateTodoService from '../services/CreateTodoService';
-import DeleteTodoService from '../services/DeleteTodoService';
-import UpdateTodoService from '../services/UpdateTodoService';
-import TodoRepository from '../repositories/TodoRepository';
-import UserRepository from '../repositories/UserRepository';
-import ListUserTodosService from '../services/ListUserTodosService';
+import CreateTodoService from './services/CreateTodoService';
+import DeleteTodoService from './services/DeleteTodoService';
+import UpdateTodoService from './services/UpdateTodoService';
+import TodoRepository from './repository/TodoRepository';
+import UserRepository from 'modules/user/repository/UserRepository';
+import ListUserTodosService from './services/ListUserTodosService';
 
 class TodoController {
 	async index(req: Request, res: Response) {

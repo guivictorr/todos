@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import UserRepository from '../repositories/UserRepository';
-import CreateUserService from '../services/CreateUserService';
-import UpdateUserService from '../services/UpdateUserService';
+import UserRepository from './repository/UserRepository';
+import CreateUserService from './services/CreateUserService';
+import UpdateUserService from './services/UpdateUserService';
 
 class UserController {
 	async create(req: Request, res: Response) {

@@ -1,9 +1,9 @@
-import AppError from '../error/AppError';
+import AppError from 'error/AppError';
 import {
 	ICreateSubtodoDTO,
 	ISubtodoRepository,
-} from '../repositories/ISubtodoRepository';
-import { ITodoRepository } from '../repositories/ITodoRepository';
+} from '../repository/ISubtodoRepository';
+import { ITodoRepository } from 'modules/todos/repository/ITodoRepository';
 
 class CreateSubtodoService {
 	constructor(

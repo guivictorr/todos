@@ -1,5 +1,5 @@
-import AppError from '../error/AppError';
-import { ITodoRepository } from '../repositories/ITodoRepository';
+import AppError from 'error/AppError';
+import { ITodoRepository } from '../repository/ITodoRepository';
 
 class DeleteTodoService {
 	constructor(private todoRepository: ITodoRepository) {}

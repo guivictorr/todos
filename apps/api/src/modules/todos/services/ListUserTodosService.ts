@@ -1,6 +1,6 @@
-import AppError from '../error/AppError';
-import { ITodoRepository } from '../repositories/ITodoRepository';
-import { IUserRepository } from '../repositories/IUserRepository';
+import AppError from 'error/AppError';
+import { ITodoRepository } from '../repository/ITodoRepository';
+import { IUserRepository } from 'modules/user/repository/IUserRepository';
 
 class ListUserTodos {
 	constructor(

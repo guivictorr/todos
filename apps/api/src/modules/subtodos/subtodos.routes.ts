@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { SubtodoController } from '../controller/SubtodoController';
+import { SubtodoController } from './SubtodoController';
 
-import authenticate from '../middlewares/auth';
-import { validate } from '../middlewares/validate';
-import { todoSchema } from '../schemas/todo';
+import authenticate from 'middlewares/auth';
+import { validate } from 'middlewares/validate';
+import { todoSchema } from 'modules/todos/schemas/todo';
 
 const subtodoController = new SubtodoController();
 const subtodoRoutes = Router();

@@ -1,9 +1,9 @@
 import { hash } from 'bcrypt';
-import AppError from '../error/AppError';
+import AppError from 'error/AppError';
 import {
 	ICreateUserDTO,
 	IUserRepository,
-} from '../repositories/IUserRepository';
+} from 'modules/user/repository/IUserRepository';
 
 class CreateUserService {
 	constructor(private userRepository: IUserRepository) {}

@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"scripts": {
 		"lint": "eslint . --max-warnings=0 --fix && tsc --project tsconfig.json --noEmit",
-		"dev": "nodemon --watch 'src/' --exec ts-node src/index.ts --transpile-only -e ts",
+		"dev": "nodemon --watch 'src/' --exec ts-node -r tsconfig-paths/register src/index.ts --transpile-only -e ts",
 		"test": "jest -i"
 	},
 	"dependencies": {
@@ -36,6 +36,7 @@
 		"supertest": "^6.2.2",
 		"ts-jest": "^27.1.3",
 		"ts-node": "^10.5.0",
+		"tsconfig-paths": "^4.0.0",
 		"typescript": "^4.5.5"
 	}
 }

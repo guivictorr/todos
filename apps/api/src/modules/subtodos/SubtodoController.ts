@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { SubtodoRepository } from '../repositories/SubtodoRepository';
-import TodoRpository from '../repositories/TodoRepository';
-import CreateSubtodoService from '../services/CreateSubtodoService';
-import { DeleteSubtodoService } from '../services/DeleteSubtodoService';
-import { UpdateSubtodoService } from '../services/UpdateSubtodoService';
+import { SubtodoRepository } from './repository/SubtodoRepository';
+import TodoRpository from 'modules/todos/repository/TodoRepository';
+import CreateSubtodoService from './services/CreateSubtodoService';
+import { DeleteSubtodoService } from './services/DeleteSubtodoService';
+import { UpdateSubtodoService } from './services/UpdateSubtodoService';
 
 export class SubtodoController {
 	async create(req: Request, res: Response) {

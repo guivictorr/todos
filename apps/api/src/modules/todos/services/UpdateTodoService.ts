@@ -1,7 +1,7 @@
 import { Todo } from '@prisma/client';
 
-import AppError from '../error/AppError';
-import { ITodoRepository } from '../repositories/ITodoRepository';
+import AppError from 'error/AppError';
+import { ITodoRepository } from '../repository/ITodoRepository';
 
 class UpdateTodoService {
 	constructor(private todoRepository: ITodoRepository) {}

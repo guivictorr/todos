@@ -1,5 +1,5 @@
 import { verify } from 'jsonwebtoken';
-import AppError from '../error/AppError';
+import AppError from 'error/AppError';
 import { NextFunction, Request, Response } from 'express';
 
 async function authenticate(

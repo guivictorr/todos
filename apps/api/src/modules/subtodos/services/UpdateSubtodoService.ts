@@ -1,6 +1,6 @@
 import { Subtodo } from '@prisma/client';
-import AppError from '../error/AppError';
-import { ISubtodoRepository } from '../repositories/ISubtodoRepository';
+import AppError from 'error/AppError';
+import { ISubtodoRepository } from '../repository/ISubtodoRepository';
 
 export class UpdateSubtodoService {
 	constructor(private subtodoRepository: ISubtodoRepository) {}

@@ -1,5 +1,5 @@
 import { Todo } from '@prisma/client';
-import { prismaClient } from '../database/prismaClient';
+import { prismaClient } from 'database/prismaClient';
 import { ICreateTodoDTO, ITodoRepository } from './ITodoRepository';
 
 class TodoRepository implements ITodoRepository {

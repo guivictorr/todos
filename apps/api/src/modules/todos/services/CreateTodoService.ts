@@ -1,9 +1,6 @@
-import AppError from '../error/AppError';
-import {
-	ICreateTodoDTO,
-	ITodoRepository,
-} from '../repositories/ITodoRepository';
-import { IUserRepository } from '../repositories/IUserRepository';
+import AppError from 'error/AppError';
+import { ICreateTodoDTO, ITodoRepository } from '../repository/ITodoRepository';
+import { IUserRepository } from 'modules/user/repository/IUserRepository';
 
 class CreateTodoService {
 	constructor(

@@ -1,5 +1,5 @@
-import AppError from '../error/AppError';
-import { ISubtodoRepository } from '../repositories/ISubtodoRepository';
+import AppError from 'error/AppError';
+import { ISubtodoRepository } from '../repository/ISubtodoRepository';
 
 export class DeleteSubtodoService {
 	constructor(private subtodoRepository: ISubtodoRepository) {}
