@@ -13,7 +13,7 @@ describe('/user', () => {
 		it('should create a new user', async () => {
 			const response = await req.post(endpoint).send({
 				email: 'user1@gmail.com',
-				password: '123',
+				password: '12345678',
 				name: 'User',
 			});
 
@@ -23,6 +23,73 @@ describe('/user', () => {
 				email: response.body.email,
 				name: response.body.name,
 				createdAt: expect.any(String),
+			});
+		});
+
+		it('should validate email', async () => {
+			const response = await req.post(endpoint).send({
+				email: 'invalid-email',
+				password: '12345678',
+				name: 'User',
+			});
+
+			expect(response.status).toBe(422);
+			expect(response.body).toStrictEqual({
+				message: 'Invalid email',
+				status: 422,
+			});
+		});
+
+		it('should validate password', async () => {
+			const response = await req.post(endpoint).send({
+				email: 'test@test.com',
+				password: '123',
+				name: 'User',
+			});
+
+			expect(response.status).toBe(422);
+			expect(response.body).toStrictEqual({
+				message: 'Password must be at least 8 characters',
+				status: 422,
+			});
+		});
+
+		it('should throw error if email is not passed', async () => {
+			const response = await req.post(endpoint).send({
+				password: '123',
+				name: 'User',
+			});
+
+			expect(response.status).toBe(422);
+			expect(response.body).toStrictEqual({
+				message: 'email is required',
+				status: 422,
+			});
+		});
+
+		it('should throw error if name is not passed', async () => {
+			const response = await req.post(endpoint).send({
+				email: 'test@gmail.com',
+				password: '12345678',
+			});
+
+			expect(response.status).toBe(422);
+			expect(response.body).toStrictEqual({
+				message: 'name is required',
+				status: 422,
+			});
+		});
+
+		it('should throw error if password is not passed', async () => {
+			const response = await req.post(endpoint).send({
+				email: 'test@gmail.com',
+				name: 'User',
+			});
+
+			expect(response.status).toBe(422);
+			expect(response.body).toStrictEqual({
+				message: 'password is required',
+				status: 422,
 			});
 		});
 	});
@@ -62,7 +129,7 @@ describe('/user', () => {
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({
 					email: 'updatetest2@test.com',
-					password: 'test',
+					password: '12345678',
 					name: 'Test',
 				});
 
@@ -78,7 +145,7 @@ describe('/user', () => {
 		it('should throw error if email is already in use', async () => {
 			const secondUser = await req.post(endpoint).send({
 				email: 'seconduser@gmail.com',
-				password: '123456',
+				password: '12345678',
 				name: 'updatetest',
 			});
 

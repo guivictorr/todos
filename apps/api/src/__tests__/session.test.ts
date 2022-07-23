@@ -9,13 +9,13 @@ describe('/session', () => {
 		it('should create a session', async () => {
 			await req.post(`${process.env.API_PREFIX}/user`).send({
 				email: 'sessiontest@test.com',
-				password: '123456',
+				password: '12345678',
 				name: 'Test',
 			});
 
 			const session = await req
 				.post(endpoint)
-				.send({ email: 'sessiontest@test.com', password: '123456' });
+				.send({ email: 'sessiontest@test.com', password: '12345678' });
 			expect(session.status).toBe(200);
 			expect(session.body).toStrictEqual({
 				token: expect.any(String),
