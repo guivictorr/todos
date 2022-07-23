@@ -15,13 +15,16 @@ describe('/todos', () => {
 	}> = {};
 
 	beforeAll(async () => {
-		session.token = sign({}, String(process.env.APP_SECRET));
+		const userId = randomUUID();
+		session.token = sign({}, String(process.env.APP_SECRET), {
+			subject: userId,
+		});
 		session.user = await prismaClient.user.create({
 			data: {
 				email: 'test@test.com',
 				password: 'test',
 				name: 'Test',
-				id: randomUUID(),
+				id: userId,
 			},
 		});
 	});
@@ -29,12 +32,12 @@ describe('/todos', () => {
 	describe('GET /todos ', () => {
 		it('should return todo by userId', async () => {
 			const { body } = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'todo title', description: 'todo description' });
 
 			const response = await req
-				.get(`${endpoint}/${session.user.id}`)
+				.get(endpoint)
 				.set('Authorization', `Bearer ${session.token}`);
 
 			expect(response.status).toBe(200);
@@ -45,24 +48,12 @@ describe('/todos', () => {
 				},
 			]);
 		});
-
-		it('should return 404 if userId does not exist', async () => {
-			const response = await req
-				.get(`${endpoint}/invalid-id`)
-				.set('Authorization', `Bearer ${session.token}`);
-
-			expect(response.status).toBe(404);
-			expect(response.body).toStrictEqual({
-				message: 'User not found',
-				status: 404,
-			});
-		});
 	});
 
 	describe('POST /todos', () => {
 		it('should create todo', async () => {
 			const response = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'todo title', description: 'todo description' });
 
@@ -77,22 +68,9 @@ describe('/todos', () => {
 			});
 		});
 
-		it('should throw 404 if userId does not exist', async () => {
-			const response = await req
-				.post(`${endpoint}/invalid-id`)
-				.set('Authorization', `Bearer ${session.token}`)
-				.send({ title: 'todo title', description: 'todo description' });
-
-			expect(response.status).toEqual(404);
-			expect(response.body).toEqual({
-				message: 'User not found',
-				status: 404,
-			});
-		});
-
 		it('should not create todo with invalid title', async () => {
 			const response = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: '', description: 'todo description' });
 
@@ -105,7 +83,7 @@ describe('/todos', () => {
 
 		it('should not create todo with invalid description', async () => {
 			const response = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: '' });
 
@@ -118,7 +96,7 @@ describe('/todos', () => {
 
 		it('should not create todo with title length greater than 45 characters', async () => {
 			const response = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 't'.repeat(46), description: 'description' });
 
@@ -131,7 +109,7 @@ describe('/todos', () => {
 
 		it('should not create todo with description length greater than 150 characters', async () => {
 			const response = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: 'd'.repeat(151) });
 
@@ -146,7 +124,7 @@ describe('/todos', () => {
 	describe('UPDATE /todos', () => {
 		it('should update todo', async () => {
 			const { body } = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.send({ title: 'todo title', description: 'todo description' })
 				.set('Authorization', `Bearer ${session.token}`);
 
@@ -181,11 +159,11 @@ describe('/todos', () => {
 
 		it('should not update todo with invalid title', async () => {
 			const { body } = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.send({ title: 'todo title', description: 'todo description' });
 
 			const response = await req
-				.put(`/api/v1/todos/${body.id}`)
+				.put(`${endpoint}/${body.id}`)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: '', description: 'updated description' });
 
@@ -198,11 +176,11 @@ describe('/todos', () => {
 
 		it('should not update todo with invalid description', async () => {
 			const createdTodo = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.send({ title: 'todo title', description: 'todo description' });
 
 			const response = await req
-				.put(`/api/v1/todos/${createdTodo.body.id}`)
+				.put(`${endpoint}/${createdTodo.body.id}`)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: '' });
 
@@ -215,11 +193,11 @@ describe('/todos', () => {
 
 		it('should not update todo with title length greater than 45 characters', async () => {
 			const { body } = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.send({ title: 'todo title', description: 'todo description' });
 
 			const response = await req
-				.put(`/api/v1/todos/${body.id}`)
+				.put(`${endpoint}/${body.id}`)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 't'.repeat(46), description: 'description' });
 
@@ -232,11 +210,11 @@ describe('/todos', () => {
 
 		it('should not update todo with description length greater than 150 characters', async () => {
 			const { body } = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.send({ title: 'todo title', description: 'todo description' });
 
 			const response = await req
-				.put(`/api/v1/todos/${body.id}`)
+				.put(`${endpoint}/${body.id}`)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'title', description: 'd'.repeat(151) });
 
@@ -251,9 +229,10 @@ describe('/todos', () => {
 	describe('DELETE /todos', () => {
 		it('should delete todo', async () => {
 			const { body } = await req
-				.post(`${endpoint}/${session.user.id}`)
+				.post(endpoint)
 				.set('Authorization', `Bearer ${session.token}`)
 				.send({ title: 'todo title', description: 'todo description' });
+
 			const response = await req
 				.delete(`${endpoint}/${body.id}`)
 				.set('Authorization', `Bearer ${session.token}`);

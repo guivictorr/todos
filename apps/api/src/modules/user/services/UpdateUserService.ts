@@ -8,11 +8,6 @@ class UpdateUserService {
 
 	async execute(id: string, user: Partial<User>) {
 		const emailAlreadyInUse = await this.userRepository.findByEmail(user.email);
-		const userExists = await this.userRepository.findById(id);
-
-		if (!userExists) {
-			throw new AppError('User not found', 404);
-		}
 
 		if (emailAlreadyInUse) {
 			throw new AppError('Email already in use', 400);

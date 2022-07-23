@@ -1,3 +1,7 @@
+import { User } from '@prisma/client';
+import { randomUUID } from 'crypto';
+import { prismaClient } from 'database/prismaClient';
+import { sign } from 'jsonwebtoken';
 import request from 'supertest';
 import { app } from '../index';
 
@@ -24,15 +28,38 @@ describe('/user', () => {
 	});
 
 	describe('PUT /user', () => {
-		it('should update user data', async () => {
-			const createdUser = await req.post(endpoint).send({
-				email: 'updatetest@test.com',
-				password: 'test',
-				name: 'Test',
-			});
+		const session: Partial<{
+			token: string;
+			user: User;
+		}> = {};
 
+		beforeEach(async () => {
+			const userId = randomUUID();
+			session.token = sign({}, String(process.env.APP_SECRET), {
+				subject: userId,
+			});
+			session.user = await prismaClient.user.create({
+				data: {
+					email: 'test@test.com',
+					password: 'test',
+					name: 'Test',
+					id: userId,
+				},
+			});
+		});
+
+		afterEach(async () => {
+			await prismaClient.user.delete({
+				where: {
+					id: session.user.id,
+				},
+			});
+		});
+
+		it('should update user data', async () => {
 			const updatedUser = await req
-				.put(`${endpoint}/${createdUser.body.id}`)
+				.put(endpoint)
+				.set('Authorization', `Bearer ${session.token}`)
 				.send({
 					email: 'updatetest2@test.com',
 					password: 'test',
@@ -41,32 +68,14 @@ describe('/user', () => {
 
 			expect(updatedUser.status).toBe(200);
 			expect(updatedUser.body).toStrictEqual({
-				id: createdUser.body.id,
+				id: session.user.id,
 				email: updatedUser.body.email,
 				name: updatedUser.body.name,
-				createdAt: createdUser.body.createdAt,
-			});
-		});
-
-		it('should throw error if user does not exist', async () => {
-			const response = await req.put(`${endpoint}/123`).send({
-				email: 'invalid-user',
-			});
-
-			expect(response.status).toBe(404);
-			expect(response.body).toStrictEqual({
-				message: 'User not found',
-				status: 404,
+				createdAt: updatedUser.body.createdAt,
 			});
 		});
 
 		it('should throw error if email is already in use', async () => {
-			const firstUser = await req.post(endpoint).send({
-				email: 'firstuser@gmail.com',
-				password: '123456',
-				name: 'updatetest',
-			});
-
 			const secondUser = await req.post(endpoint).send({
 				email: 'seconduser@gmail.com',
 				password: '123456',
@@ -74,12 +83,14 @@ describe('/user', () => {
 			});
 
 			const updatedUser = await req
-				.put(`${endpoint}/${firstUser.body.id}`)
+				.put(endpoint)
+				.set('Authorization', `Bearer ${session.token}`)
 				.send({
 					email: secondUser.body.email,
 					password: 'updatedpassword',
 					name: 'User',
 				});
+
 			expect(updatedUser.status).toBe(400);
 			expect(updatedUser.body).toStrictEqual({
 				message: 'Email already in use',

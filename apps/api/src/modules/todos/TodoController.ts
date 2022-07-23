@@ -3,41 +3,32 @@ import CreateTodoService from './services/CreateTodoService';
 import DeleteTodoService from './services/DeleteTodoService';
 import UpdateTodoService from './services/UpdateTodoService';
 import TodoRepository from './repository/TodoRepository';
-import UserRepository from 'modules/user/repository/UserRepository';
 import ListUserTodosService from './services/ListUserTodosService';
 
 class TodoController {
 	async index(req: Request, res: Response) {
-		const { userId } = req.params;
+		const { id } = res.locals.user;
 
-		const userRepository = new UserRepository();
 		const todoRepository = new TodoRepository();
 
-		const listTodosService = new ListUserTodosService(
-			todoRepository,
-			userRepository,
-		);
+		const listTodosService = new ListUserTodosService(todoRepository);
 
-		const todos = await listTodosService.execute(userId);
+		const todos = await listTodosService.execute(id);
 
 		res.send(todos);
 	}
 
 	async create(req: Request, res: Response) {
 		const { title, description } = req.body;
-		const { userId } = req.params;
+		const { id } = res.locals.user;
 
 		const todoRepository = new TodoRepository();
-		const userRepository = new UserRepository();
 
-		const createTodoService = new CreateTodoService(
-			todoRepository,
-			userRepository,
-		);
+		const createTodoService = new CreateTodoService(todoRepository);
 		const todo = await createTodoService.execute({
 			title,
 			description,
-			userId,
+			userId: id,
 		});
 
 		res.send(todo);

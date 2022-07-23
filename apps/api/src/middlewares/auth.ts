@@ -16,7 +16,11 @@ async function authenticate(
 	const [, token] = authHeader.split(' ');
 
 	try {
-		verify(token, String(process.env.APP_SECRET));
+		const { sub: userId } = verify(token, String(process.env.APP_SECRET));
+
+		response.locals.user = {
+			id: userId,
+		};
 
 		next();
 	} catch (err) {
