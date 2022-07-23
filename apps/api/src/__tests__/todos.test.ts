@@ -65,6 +65,7 @@ describe('/todos', () => {
 				userId: session.user.id,
 				completed: false,
 				createdAt: expect.any(String),
+				collection: null,
 			});
 		});
 
@@ -141,6 +142,7 @@ describe('/todos', () => {
 				createdAt: body.createdAt,
 				completed: false,
 				userId: session.user.id,
+				collection: null,
 			});
 		});
 

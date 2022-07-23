@@ -8,14 +8,16 @@ datasource db {
 }
 
 model Todo {
-  id          String    @id @default(uuid())
-  title       String    @db.VarChar(45)
-  description String    @db.VarChar(150)
-  completed   Boolean   @default(false) @db.Boolean
-  createdAt   DateTime  @default(now())
+  id          String      @id @default(uuid())
+  title       String      @db.VarChar(45)
+  description String      @db.VarChar(150)
+  completed   Boolean     @default(false) @db.Boolean
+  createdAt   DateTime    @default(now())
   userId      String
-  User        User      @relation(fields: [userId], references: [id])
+  User        User        @relation(fields: [userId], references: [id])
   subtodos    Subtodo[]
+  Collection  Collection? @relation(fields: [collection], references: [name])
+  collection  String?
 }
 
 model Subtodo {
@@ -33,6 +35,13 @@ model User {
   name      String   @db.VarChar(45)
   email     String   @unique @db.VarChar(45)
   password  String   @db.VarChar(75)
+  createdAt DateTime @default(now())
+  todos     Todo[]
+}
+
+model Collection {
+  id        String   @id @default(uuid())
+  name      String   @unique @db.VarChar(45)
   createdAt DateTime @default(now())
   todos     Todo[]
 }
