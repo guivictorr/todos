@@ -31,17 +31,21 @@ model Subtodo {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String   @db.VarChar(45)
-  email     String   @unique @db.VarChar(45)
-  password  String   @db.VarChar(75)
-  createdAt DateTime @default(now())
-  todos     Todo[]
+  id          String       @id @default(uuid())
+  name        String       @db.VarChar(45)
+  email       String       @unique @db.VarChar(45)
+  password    String       @db.VarChar(75)
+  createdAt   DateTime     @default(now())
+  todos       Todo[]
+  collections Collection[]
 }
 
 model Collection {
   id        String   @id @default(uuid())
   name      String   @unique @db.VarChar(45)
+  color     String   @unique @db.VarChar(7)
   createdAt DateTime @default(now())
   todos     Todo[]
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
 }
